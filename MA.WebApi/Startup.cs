@@ -1,10 +1,12 @@
-﻿using MA.Service;
+﻿using MA.Entity.Core.Context;
+using MA.Service;
 using MA.WebApi.Configuration.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ninject;
@@ -59,6 +61,9 @@ namespace MA.WebApi
             services.AddRequestScopingMiddleware(() => this.scopeProvider.Value = new Scope()); 
             services.AddCustomControllerActivation(this.Resolve);
             services.AddCustomViewComponentActivation(this.Resolve);
+
+            services.AddDbContext<DefaultDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultDatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

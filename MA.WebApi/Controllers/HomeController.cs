@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MA.WebApi.Controllers
 {
@@ -22,16 +16,16 @@ namespace MA.WebApi.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return this.Ok(new string[] { "value1", "value2" });
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return this._testService.TestMethod();
+            return this.Ok(this._testService.TestMethod());
         }
 
         // POST api/<controller>
